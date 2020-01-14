@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
-@Disabled
-public class StarWarsResourceTest {
+//@Disabled
+public class MovieResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -112,7 +112,7 @@ public class StarWarsResourceTest {
     @Test
     public void serverIsRunning() {
         System.out.println("Testing is server UP");
-        given().when().get("/starwars").then().statusCode(200);
+        given().when().get("/movie").then().statusCode(200);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class StarWarsResourceTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/starwars").then()
+                .get("/movie").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello World"));
     }
@@ -133,7 +133,7 @@ public class StarWarsResourceTest {
                 .accept(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/starwars/admin").then()
+                .get("/movie/admin").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to (admin) User: admin"));
     }
@@ -145,7 +145,7 @@ public class StarWarsResourceTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/starwars/user").then()
+                .get("/movie/user").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to User: user"));
     }
@@ -157,7 +157,7 @@ public class StarWarsResourceTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/starwars/admin").then() //Call Admin endpoint as user
+                .get("/movie/admin").then() //Call Admin endpoint as user
                 .statusCode(401);
     }
 
@@ -168,33 +168,8 @@ public class StarWarsResourceTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/starwars/user").then() //Call User endpoint as Admin
+                .get("/movie/user").then() //Call User endpoint as Admin
                 .statusCode(401);
-    }
-
-    @Test
-    public void testRestForMultiRole1() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .accept(ContentType.JSON)
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/starwars/admin").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: user_admin"));
-    }
-
-    @Test
-    public void testRestForMultiRole2() {
-        login("user_admin", "test");
-        given()
-                .contentType("application/json")
-                .header("x-access-token", securityToken)
-                .when()
-                .get("/starwars/user").then()
-                .statusCode(200)
-                .body("msg", equalTo("Hello to User: user_admin"));
     }
 
     @Test
@@ -203,7 +178,7 @@ public class StarWarsResourceTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/starwars/user").then()
+                .get("/movie/user").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
@@ -215,39 +190,35 @@ public class StarWarsResourceTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/starwars/user").then()
+                .get("/movie/user").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
     }
 
     @Test
-    @Disabled
-    // should use Mockups instead of actually fetching from third-party endpoints
-    public void getStarWarsFetchTest() {
+    //@Disabled
+    
+    public void getMovieFetchTest() {
         login("user_admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/starwars/starWars/1").then()
+                .get("/movie/movie-count/Die%20Hard").then()
                 .statusCode(200)
-                .body("birth_year", equalTo("19BBY"))
-                .body("eye_color", equalTo("blue"))
-                .body("gender", equalTo("male"));
+                .body("msg", equalTo("Total amount of searches for this title: 0"));
     }
     
     @Test
-    @Disabled
-    // should use Mockups instead of actually fetching from third-party endpoints
-    // google "java mock and outgoing requests"
-    public void getStarWarsFetchNotAuthenticated() {
+    //@Disabled
+    public void getMovieFetchNotAuthenticated() {
         logOut();
         given()
                 .contentType("application/json")
                 .when()
-                .get("/starwars/starWars/1").then()
+                .get("/movie/movie-info-all/Die%20Hard").then()
                 .statusCode(403)
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));

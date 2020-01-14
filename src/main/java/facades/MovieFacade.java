@@ -101,7 +101,7 @@ public class MovieFacade {
         return result;}
     }
 
-    public void addSearched(MovieDTO add) {
+    private void addSearched(MovieDTO add) {
         UserRequest r = new UserRequest(add.getTitle());
         CreateRequest(r);
         if (check(add.getTitle())) {
@@ -110,7 +110,7 @@ public class MovieFacade {
             CreateStoredM(m);
         }
     }
-     public void addSimpelSearched(Movie add) {
+     private void addSimpelSearched(Movie add) {
         UserRequest r = new UserRequest(add.getTitle());
         CreateRequest(r);
     }
