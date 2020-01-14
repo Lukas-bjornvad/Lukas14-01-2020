@@ -20,6 +20,19 @@ public class Movie {
     private String cast;
    private String poster;
 
+    public Movie() {
+    }
+
+    public Movie(MovieDTO dto) {
+        this.title = dto.getTitle();
+        this.plot = dto.getPlot();
+        this.directors = dto.getDirectors();
+        this.genres = dto.getGenres();
+        this.cast = dto.getCast();
+        this.poster = dto.getPoster();
+    }
+
+   
     public String getTitle() {
         return title;
     }

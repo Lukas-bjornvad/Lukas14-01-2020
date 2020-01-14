@@ -1,6 +1,6 @@
 package rest;
 
-import entities.RenameMe;
+import entities.UserRequest;
 import entities.User;
 import entities.Role;
 

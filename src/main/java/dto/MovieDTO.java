@@ -13,6 +13,7 @@ import java.util.LinkedList;
  * @author Lukas Bjornvad
  */
 public class MovieDTO {
+
     private String title;
     private int year;
     private String plot;
@@ -20,9 +21,9 @@ public class MovieDTO {
     private String genres;
     private String cast;
     private String poster;
-    private double imdb;
-    private double rotten;
-    private double meta;
+    private ScoreI imdb;
+    private ScoreR rotten;
+    private ScoreM meta;
 
     public MovieDTO(Movie mov) {
         this.title = mov.getTitle();
@@ -34,7 +35,6 @@ public class MovieDTO {
         this.poster = mov.getPoster();
     }
 
-    
     public String getTitle() {
         return title;
     }
@@ -90,10 +90,29 @@ public class MovieDTO {
     public void setPoster(String poster) {
         this.poster = poster;
     }
-    
-    
-  
 
+    public ScoreR getRotten() {
+        return rotten;
+    }
 
-    
+    public void setRotten(ScoreR rotten) {
+        this.rotten = rotten;
+    }
+
+    public ScoreI getImdb() {
+        return imdb;
+    }
+
+    public void setImdb(ScoreI imdb) {
+        this.imdb = imdb;
+    }
+
+    public ScoreM getMeta() {
+        return meta;
+    }
+
+    public void setMeta(ScoreM meta) {
+        this.meta = meta;
+    }
+
 }

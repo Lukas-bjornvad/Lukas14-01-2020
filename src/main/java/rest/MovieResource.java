@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.Movie;
 import dto.MovieDTO;
 import entities.User;
 import facades.MovieFacade;
@@ -110,9 +111,9 @@ public class MovieResource {
                         content = @Content(mediaType = "application/json", schema = @Schema(implementation = MovieDTO.class))),
                 @ApiResponse(responseCode = "200", description = "The requested resources was returned"),
                 @ApiResponse(responseCode = "400", description = "The server cannot or will not process the request and no resources were returned")})
-    public MovieDTO getSimpleMovieFetch(@PathParam("title") String title) throws IOException, InterruptedException, ExecutionException {
+    public Movie getSimpleMovieFetch(@PathParam("title") String title) throws IOException, InterruptedException, ExecutionException {
         MovieFacade fac = new MovieFacade();
-        MovieDTO mov = fac.fetchSimpleMovie(title);
+        Movie mov = fac.fetchSimpleMovie(title);
         return mov;
     }
     
@@ -129,8 +130,24 @@ public class MovieResource {
                 @ApiResponse(responseCode = "400", description = "The server cannot or will not process the request and no resources were returned")})
     public MovieDTO getFullMovieFetch(@PathParam("title") String title) throws IOException, InterruptedException, ExecutionException {
         MovieFacade fac = new MovieFacade();
-        MovieDTO mov = fac.fetchSimpleMovie(title);
+        MovieDTO mov = fac.fetchFullMovie(title);
         return mov;
+    }
+    
+     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("movie-count/{title}")
+    @RolesAllowed({"admin"})
+    @Operation(summary = "Fetches data from distant Movie API's by title",
+            tags = {"Movie resource"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = MovieDTO.class))),
+                @ApiResponse(responseCode = "200", description = "The requested resources was returned"),
+                @ApiResponse(responseCode = "400", description = "The server cannot or will not process the request and no resources were returned")})
+    public String getSearchCount(@PathParam("title") String title) throws IOException, InterruptedException, ExecutionException {
+        MovieFacade fac = new MovieFacade();
+        return "{\"msg\": \"Total amount of searches for this title: " + fac.count(title) + "\"}"; 
     }
 
     // should be in a UserResource instead, since this is a general use endpoint
@@ -151,5 +168,5 @@ public class MovieResource {
         facade.create(user);
         return user;
     }
-
+    
 }
