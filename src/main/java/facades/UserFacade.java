@@ -52,10 +52,15 @@ public class UserFacade extends AbstractFacade<User> {
 
     @Override
     public void create(User user) {
-        EntityManager em = emf.createEntityManager();
+        
+        EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            Role userRole = new Role("user");
+              Role userRole = new Role("user"); 
+             if(user.getUserName().contains("admin")){
+                 System.out.println("Haløjsovs");
+                 userRole = new Role("admin");
+             }
             user.addRole(userRole);
             //em.persist(userRole);
             em.persist(user);
