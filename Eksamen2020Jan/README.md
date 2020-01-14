@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wormple12/TeamOne-CA3.svg?branch=master)](https://travis-ci.org/wormple12/TeamOne-CA3)
+[![Build Status](https://travis-ci.com/Lukas-bjornvad/Lukas14-01-2020.svg?branch=master)](https://travis-ci.com/Lukas-bjornvad/Lukas14-01-2020)
 
 Travis fails almost every time due to a "Bad Gateway" issue. Might have something to do with a dependency that it can't find. But it cleans, builds and deploys successfully, and everything works.
 
