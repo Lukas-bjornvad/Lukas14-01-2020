@@ -19,7 +19,7 @@ import java.util.concurrent.Future;
 
 /**
  *
- * @author Simon Norup
+ * 
  * @param <T>
  */
 public class DatFetcher<T> {
